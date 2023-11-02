@@ -9,8 +9,9 @@ class CowNotFoundError(Exception):
 
 # List all cows. Accepts list of cow objects.
 def list_cows(cows):
+    print("Cows available: ")
     for cow in cows:
-        print(cow.get_name())
+        print(cow.get_name(), end=" ")
 
 
 # Find a specific cow. Accepts a string name and a list of cow objects
@@ -32,9 +33,7 @@ def main():
     # Get a list of cows
     cows = HeiferGenerator.get_cows()
 
-    # TODO test for bad input
     try:
-
         # Print a help message
         if sys.argv[1] == '--help':
             print("usage: cowsay.py [OPTION] MESSAGE")
@@ -63,7 +62,9 @@ def main():
                     raise CowNotFoundError
 
                 # Print the message and speech bubble lines
-                print(sys.argv[3])
+                for i in sys.argv[3:]:
+                    print(i, end=" ")
+                print()
                 print(HeiferGenerator.quoteLines)
                 print(cow.get_image())
 
@@ -76,7 +77,9 @@ def main():
         # No flag was specified
         else:
             # Print the message and speech bubble lines
-            print(sys.argv[1])
+            for i in sys.argv[1:]:
+                print(i, end=" ")
+            print()
             print(HeiferGenerator.quoteLines)
 
             # Print the default cow, which is the first entry in the heifer generator
