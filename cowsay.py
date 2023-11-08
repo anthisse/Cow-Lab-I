@@ -1,4 +1,6 @@
 import sys
+
+from dragon import Dragon
 from heifer_generator import HeiferGenerator
 
 
@@ -22,8 +24,15 @@ def find_cow(name, cows):
     for cow in cows:
         # If the name is a cow name
         if name == cow.get_name():
+            # TODO This seems like a shoddy fix
+            # If the cow is a Dragon
+            if isinstance(cow, Dragon):
+                # Set the image to the dragon image
+                cow.set_image(HeiferGenerator.dragon_image)
+                # Return the cow
+                return cow
             # Set the image of the cow using the index of the name of the cow
-            cow.set_image(HeiferGenerator.cowImages[HeiferGenerator.cowNames.index(name)])
+            cow.set_image(HeiferGenerator.cowImages[HeiferGenerator.cow_names.index(name)])
             # Return the cow
             return cow
 
@@ -58,8 +67,17 @@ def print_message(cows):
         for i in sys.argv[3:]:
             print(i, end=" ")
         print()
-        print(HeiferGenerator.quoteLines)
+        print(HeiferGenerator.quote_lines)
         print(cow.get_image())
+
+        # TODO This seems like a shoddy fix
+        # If the cow is a Dragon
+        if isinstance(cow, Dragon):
+            # Check if it can breathe fire
+            if cow.can_breathe_fire():
+                print("This dragon can breathe fire.")
+            else:
+                print("This dragon cannot breathe fire.")
 
     # Print that the requested cow wasn't found
     except CowNotFoundError:
@@ -72,7 +90,7 @@ def print_default_cow(cows):
     for i in sys.argv[1:]:
         print(i, end=" ")
     print()
-    print(HeiferGenerator.quoteLines)
+    print(HeiferGenerator.quote_lines)
     # Print the default cow, which is the first entry in the heifer generator
     cows[0].set_image(HeiferGenerator.cowImages[0])
     print(cows[0].get_image())
@@ -81,7 +99,6 @@ def print_default_cow(cows):
 def main():
     # Get a list of cows
     cows = HeiferGenerator.get_cows()
-
     try:
         # Print a help message
         if sys.argv[1] == '--help':
@@ -104,7 +121,7 @@ def main():
             print_default_cow(cows)
 
     except IndexError:
-        raise SystemExit("usage: cowsay.py [OPTION]\nTry 'cowsay.py --help' for more information.")
+        raise SystemExit("usage: cowsay.py [OPTION] [MESSAGE]\nTry 'cowsay.py --help' for more information.")
 
 
 # Call main
