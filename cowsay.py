@@ -24,7 +24,6 @@ def find_cow(name, cows):
     for cow in cows:
         # If the name is a cow name
         if name == cow.get_name():
-            # TODO This seems like a shoddy fix
             # If the cow is a Dragon
             if isinstance(cow, Dragon):
                 # Set the image to the dragon image
@@ -70,7 +69,6 @@ def print_message(cows):
         print(HeiferGenerator.quote_lines)
         print(cow.get_image())
 
-        # TODO This seems like a shoddy fix
         # If the cow is a Dragon
         if isinstance(cow, Dragon):
             # Check if it can breathe fire
@@ -96,6 +94,7 @@ def print_default_cow(cows):
     print(cows[0].get_image())
 
 
+# Main function
 def main():
     # Get a list of cows
     cows = HeiferGenerator.get_cows()
@@ -120,6 +119,7 @@ def main():
         else:
             print_default_cow(cows)
 
+    # If the program was run with no parameters, throw a SystemExit to display information
     except IndexError:
         raise SystemExit("usage: cowsay.py [OPTION] [MESSAGE]\nTry 'cowsay.py --help' for more information.")
 
